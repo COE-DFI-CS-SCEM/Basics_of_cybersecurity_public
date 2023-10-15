@@ -6,11 +6,20 @@
  * Website
  * cryptography
 
- Things will be implemented
+ Things Should be implemented in the CTF
 
  1. linux
     - Stenography <br>
      File based cryptography using hexadecimal file signature to hide the files.
+
+
+ 2. Web Application
+    - image stenography
+
+
+ 3. Linux
+    - file signatures
+    - image stenography
 
 
 
@@ -24,18 +33,12 @@ Docker set up for the mern application
  <!-- <a href ="link"> <b>TXT in bold </b></a>  -->
 ## Mern stack CTF application Dev resources
 
- Web Application
- - image stenography
 
 
- Linux
-- file signatures
-- image stenography
-
-
- Cryptography
+ ## Cryptography
 
  <a href =" https://ctf101.org/cryptography/overview/"> Cryptography dev resources</a><br>
+
 
 <a href ="https://www.geeksforgeeks.org/how-to-setup-and-configure-an-ftp-server-in-linux-2/"> <b> FTP in linux </b></a> 
 
