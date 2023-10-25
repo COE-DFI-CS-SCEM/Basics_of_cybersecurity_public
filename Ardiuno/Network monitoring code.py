@@ -1,24 +1,25 @@
 import network
-import usocket
+import machine
+import time
+from scapy.all import sniff, ARP
 
-# Set up the Wi-Fi connection
-wifi = network.WLAN(network.STA_IF)
-wifi.active(True)
-wifi.connect("your_network_ssid", "your_network_password")
+# Connect to your Wi-Fi network
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect('Your_SSID', 'Your_Password')
 
-# Create a raw socket for packet capture
-raw_socket = usocket.socket(usocket.AF_PACKET, usocket.SOCK_RAW, usocket.IPPROTO_RAW)
+while not wlan.isconnected():
+    time.sleep(1)
 
-# Set the interface for packet capture (wlan0 for Wi-Fi)
-raw_socket.bind(("wlan0", 0))
+print("Connected to Wi-Fi")
 
-# Capture and print 10 packets
-packet_count = 0
+def packet_handler(packet):
+    if ARP in packet and packet[ARP].op in (1, 2):  # Capture ARP requests and responses
+        print(f"Source IP: {packet[ARP].psrc} - Destination IP: {packet[ARP].pdst}")
 
-while packet_count < 10:
-    packet = raw_socket.recv(2048)  # Adjust the buffer size as needed
-    print(packet)
-    packet_count += 1
+print("Starting packet sniffing...")
 
-# Close the raw socket
-raw_socket.close()
+# You can customize the filter to capture specific types of packets
+sniff(prn=packet_handler, filter="arp", store=0, iface=wlan.ifconfig()[0])
+
+print("Packet sniffing ended")
